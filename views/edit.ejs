@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit User</title>
+  <link rel="stylesheet" href="/edit.css">
+</head>
+<body>
+
+  <div class="edit-container">
+    <h2>Edit User</h2>
+    <form action="/user/:id" method="POST" >
+      <input type="hidden" name="id" value="<%=user.id%>" > <!-- hidden ID field -->
+
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" value="<%=user.username%>" required>
+
+      <!-- <label for="email">Email</label> -->
+      <input type="hidden" id="email" name="email" value="<%=user.email%>" required>
+
+      <div class="btn-group">
+        <button type="submit" class="save-btn">Save</button>
+        <button type="button" class="cancel-btn" onclick="window.location.href='http:&#x2f;&#x2f;localhost:8080&#x2f;user&#x2f;<%=user.id%>'">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Detail</title>
+  <link rel="stylesheet" href="/userInfo.css">
+</head>
+<body>
+
+  <div class="profile-card">
+    <h2><%=user.username%></h2>
+    <p><span class="label">User ID:</span><%=user.id%></p>
+    <p><span class="label">Email:</span><%=user.email%></p>
+    <a href="http://localhost:8080/users" class="back-btn">Back to All Users</a>
+    <a href="http://localhost:8080/user/<%=user.id%>/edit" class="back-btn">Edit</a>
+  </div>
+
+</body>
+</html>
