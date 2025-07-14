@@ -2,12 +2,17 @@ const express=require("express");
 const app=express(); 
 const path=require("path");
 const mysql=require("mysql2");
+require('dotenv').config();
+
+const dbPassword = process.env.DB_PASSWORD;
+const dbUser=process.env.DB_USER;
+const dbName=process.env.DB_NAME;
 
 const connection=mysql.createConnection({
     host:"localhost",
-    user:"",
-    password:"",
-    database:"college"
+    user:dbUser,
+    password:dbPassword,
+    database:dbName
 });
 
 
