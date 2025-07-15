@@ -7,13 +7,22 @@
 </head>
 <body>
 
+<% if (typeof errorMsg !== "undefined") { %>
+  <script>
+    alert("<%= errorMsg %>");
+  </script>
+<% } %>
+
   <div class="edit-container">
     <h2>Edit User</h2>
-    <form action="/user/:id" method="POST" >
+    <form action="/user/<%=user.id%>?_method=PATCH" method="POST"  >
       <input type="hidden" name="id" value="<%=user.id%>" > <!-- hidden ID field -->
 
       <label for="username">Username</label>
       <input type="text" id="username" name="username" value="<%=user.username%>" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" value="" required>
 
       <!-- <label for="email">Email</label> -->
       <input type="hidden" id="email" name="email" value="<%=user.email%>" required>

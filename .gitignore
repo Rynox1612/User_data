@@ -3,3 +3,6 @@ node_modules/
 
 # Environment variables
 .env
+
+# Optimized edit user code
+opt.js

@@ -3,6 +3,8 @@ const app=express();
 const path=require("path");
 const mysql=require("mysql2");
 require('dotenv').config();
+var methodOverride = require('method-override');
+
 
 const dbPassword = process.env.DB_PASSWORD;
 const dbUser=process.env.DB_USER;
@@ -17,10 +19,13 @@ const connection=mysql.createConnection({
 
 
 
-
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"/views"));
+
 app.use(express.static(path.join(__dirname,"public")));
+app.use(methodOverride('_method'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.listen("8080",()=>{
     console.log("Server is listening on port 8080");
@@ -59,7 +64,6 @@ app.get("/user/:id",(req,res)=>{
             if(err) throw err;
             let user=result[0];
             res.render("user.ejs",{user});
-            console.log(user);
         })
     }catch{
         console.log(err);
@@ -74,13 +78,42 @@ app.get("/user/:id/edit",(req,res)=>{
             if(err) throw err;
             let user=result[0];
             res.render("edit.ejs",{user});
-            console.log(user);
         })
     }catch{
         console.log(err);
     }
 });
 
+//MY BULKY CODE
+
 app.patch("/user/:id",(req,res)=>{
-    console.log("patch req is working");
-})
+    let {id}=req.params;
+    let newUsername=req.body.username;
+    let password=req.body.password;
+    console.log(password);
+
+    try{
+        connection.query("SELECT * FROM users WHERE id=?",id,(err,result1)=>{
+            let user=result1[0];
+            console.log(result1[0].password);
+            if(password==result1[0].password){
+                let q=`UPDATE users SET username="${newUsername}"  WHERE id = "${id}";`
+
+                try{
+                    connection.query(q,(err,result)=>{
+                    console.log(result);
+                    })
+                }catch(err){
+                        console.log(err);
+                }
+                res.redirect(`/user/${id}`);
+            }else{
+                res.render("edit.ejs",{user,errorMsg: "Incorrect password, try again" });
+            }
+        });
+    }catch(err){
+        console.log(err);
+    }
+});
+
+
