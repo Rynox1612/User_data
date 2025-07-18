@@ -26,5 +26,3 @@ While the backend structure is still evolving, the core functionalities around u
 This project was greatly enhanced with the help of **ChatGPT** in building HTML/CSS components and getting helpful suggestions during development.
 
 ---
-
-> ⚙️ **Note:** The project is still incomplete and a work in progress. Further improvements, endpoints, and UI refinements will be added soon.
