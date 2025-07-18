@@ -13,6 +13,9 @@
     <p><span class="label">Email:</span><%=user.email%></p>
     <a href="http://localhost:8080/users" class="back-btn">Back to All Users</a>
     <a href="http://localhost:8080/user/<%=user.id%>/edit" class="back-btn">Edit</a>
+    <form action="/user/<%=user.id%>?_method=DELETE" method="post">
+      <button class="back-btn" style="background-color: red;">Delete</button>
+    </form>
   </div>
 
 </body>

@@ -4,11 +4,12 @@ const path=require("path");
 const mysql=require("mysql2");
 require('dotenv').config();
 var methodOverride = require('method-override');
+const { v4: uuidv4 } = require('uuid');
 
 
 const dbPassword = process.env.DB_PASSWORD;
-const dbUser=process.env.DB_USER;
-const dbName=process.env.DB_NAME;
+const dbUser="root";
+const dbName="college";
 
 const connection=mysql.createConnection({
     host:"localhost",
@@ -117,3 +118,37 @@ app.patch("/user/:id",(req,res)=>{
 });
 
 
+// DESTORY ROUTE
+app.delete("/user/:id",(req,res)=>{
+    let {id}=req.params;
+    
+    try{
+        connection.query("DELETE FROM users WHERE id=?",id,(err,result1)=>{
+            if(err) throw err;
+            res.redirect("/users");
+        })
+    }catch(err){
+        console.log(err);
+    }
+});
+
+app.get("/users/new",(req,res)=>{
+    res.render("newUser.ejs");
+})
+app.post("/users",(req,res)=>{
+    let {id,username,email,password1,password2}=req.body;
+    id=`${uuidv4()}`;
+    if(password1==password2){
+        try {
+            let q=`INSERT INTO users (id,username,email,password) VALUES (?,?,?,?);`
+            connection.query(q,[id,username,email,password1],(err,result)=>{
+                if(err) throw err;
+                res.redirect("/users");
+            })
+        } catch (err) {
+            console.log(err);
+        };
+    }else{
+        res.send("Password didn't match, try again");
+    }
+})

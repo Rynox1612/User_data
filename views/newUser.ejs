@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit User</title>
+  <link rel="stylesheet" href="/edit.css">
+</head>
+<body>
+
+<% if (typeof errorMsg !== "undefined") { %>
+  <script>
+    alert("<%= errorMsg %>");
+  </script>
+<% } %>
+
+  <div class="edit-container">
+    <h2>Edit User</h2>
+    <form action="/users" method="POST"  >
+      <input type="hidden" name="id" value="" > <!-- hidden ID field -->
+
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" value="" required>
+
+      <!-- <label for="email">Email</label> -->
+      <input type="text" id="email" name="email" value="" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password1" placeholder="Enter your password" value="" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password2" placeholder="Confirm your password" value="" required>
+
+      <div class="btn-group">
+        <button type="submit" class="save-btn">Save</button>
+        <button type="button" class="cancel-btn" onclick="window.location.href='http:&#x2f;&#x2f;localhost:8080&#x2f;users'">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>
